@@ -3,7 +3,7 @@
 ##
 
 # Use Gstream (NVDEC)
-USE_GSTREAM:                            True
+USE_GSTREAM:                            False
 
 ##
 ## Visualization
@@ -46,10 +46,10 @@ CAMERA_INPUT_RESOLUTION:                 [1920, 1080, "MJPG"]
 FRAME_SET_FULL_PAUSE_TIME:               0.1
 
 # Save preview as video file
-SAVE_AS_VIDEO:                           False
+# SAVE_AS_VIDEO:                           False
 
 # The name of the video to store
-SAVE_AS_VIDEO_PATH:                      "output.avi"
+SAVE_AS_VIDEO_PATH:                      "static/output/result.avi"
 
 # Amount of different track colors to use
 TRACK_COLOR_COUNT:                       100
@@ -82,10 +82,10 @@ DRAW_ACCELERATION:                       False
 DRAW_VELOCITY:                           False
 
 # Draw the tracks id and name
-DRAW_TRACK_ID:                           True
+DRAW_TRACK_ID:                           False
 
 # Draw statistics of bees entering and leaving the hive
-DRAW_IN_OUT_STATS:                       True
+DRAW_IN_OUT_STATS:                       False
 
 
 ##

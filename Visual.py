@@ -48,6 +48,7 @@ class Visual(BeeProcess):
         _process_cnt = 0
         _process_time_n100 = time.time()
         _lastFPS = 0
+        onetime = True
 
         while stopped.value == 0:
             if not in_q.empty():
@@ -97,13 +98,15 @@ class Visual(BeeProcess):
                         break
 
                 # Save as Video
-                if get_config("SAVE_AS_VIDEO"):
-                    if type(writer) == type(None):
+                # if get_config("SAVE_AS_VIDEO"):
+                    if onetime == True:
                         h, w, c = img_540.shape
 
                         #TODO: Set real Framerate from video input or from video stream
                         writer = cv2.VideoWriter(get_config("SAVE_AS_VIDEO_PATH"), \
-                                cv2.VideoWriter_fourcc(*'MJPG'), 18, (w, h))
+                                cv2.VideoWriter_fourcc(*'MJPG'), 19, (w, h))
+                        onetime = False
+                        print("Writer object created")
                     writer.write(img_540)
                 
 
@@ -118,4 +121,6 @@ class Visual(BeeProcess):
                 time.sleep(0.01)
 
         # The process stopped
+        # if type(writer) != type(None):
+        writer.release()
         logger.info("Image extractor stopped")

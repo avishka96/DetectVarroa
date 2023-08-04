@@ -200,3 +200,19 @@ def get_frame_config():
         raise BaseException("Wrong image extraction setting")
 
     return frame_config
+
+# Added to check the file format
+def allowed_file(filename):
+    """A function that checks whether the uploaded filetype is allowed using its extension.
+    Supported file types: "mp4", "avi"
+
+    Parameters:
+        filename (str): The name of the uploaded file, including its extension.
+    Raises:
+        An exception if the filetype is not allowed.
+    """
+
+    file_extension = filename.split(".")[-1] in ("mp4", "avi")
+
+    if not file_extension:
+        raise HTTPException(status_code=415, detail="Unsupported file provided.")

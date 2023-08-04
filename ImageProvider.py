@@ -161,4 +161,5 @@ class ImageProvider(BeeProcess):
                     stopped.value = 1
 
         # End of process reached
+        _videoStream.release()
         logger.info("Image provider stopped")

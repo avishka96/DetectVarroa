@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from flask import Flask, jsonify, request
 from ImageProvider import ImageProvider
 from ImageConsumer import ImageConsumer
 from ImageExtractor import ImageExtractor
@@ -16,13 +17,21 @@ if get_config("NN_ENABLE"):
 logging.basicConfig(level=logging.DEBUG, format='%(process)d %(asctime)s - %(name)s - %(levelname)s - \t%(message)s')
 logger = logging.getLogger(__name__)
 
-def main():
+# Api
+# app = Flask(__name__)
+
+def runmain(vid_path = None):
 
     # Check input format: camera or video file
     args = get_args()
-    if args.video:
+    if args.video:  
         logger.info("Starting on video file '%s'" % (args.video))
         imgProvider = ImageProvider(video_file=args.video)
+
+    elif vid_path is not None:
+        logger.info(f"Starting from provided video file path {vid_path}")
+        imgProvider = ImageProvider(video_file=vid_path)
+
     else:
         logger.info("Starting on camera input")
         imgProvider = ImageProvider(video_source=0)
@@ -86,6 +95,20 @@ def main():
         imgProvider.join()
         visualiser.join()
 
+# Api function
+# @app.route('/varroa', methods=['POST'])
+# def infer_video():
+#     if 'video' not in request.files:
+#         print(request.files)
+#         return jsonify(error="File not found. Please try agin with a different file")
+    
+#     file = request.files.get('file')
+#     video_path = "./upload_files/test.avi"
+#     main(video_path)
+#     return
+
 if __name__ == '__main__':
-    main()
+    # app.run(debug=True, host='0.0.0.0')
+    video_path = "Videos/cooling_varroa_small.avi"
+    runmain(video_path)
     logger.info('\n! -- BeeAlarmed stopped!\n')
