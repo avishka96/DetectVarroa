@@ -14,6 +14,7 @@ import cv2
 import csv
 import yaml
 import argparse
+import ffmpeg
 
 _woman_names = None
 
@@ -216,3 +217,12 @@ def allowed_file(filename):
 
     if not file_extension:
         raise HTTPException(status_code=415, detail="Unsupported file provided.")
+
+
+# convert to libx264
+def to_libx264(input_file, output_file):
+    try:
+        ffmpeg.input(input_file).output(output_file, vcodec='libx264', preset='slow', crf=23, acodec='aac', audio_bitrate='192k', movflags='faststart').run(overwrite_output=True)
+        print(f"Conversion complete. Output file saved as {output_file}")
+    except ffmpeg.Error as e:
+        print(f"An error occurred: {e.stderr}")

@@ -5,3 +5,4 @@ imutils
 pyserial
 pyyaml
 tensorflow-datasets
+ffmpeg-python

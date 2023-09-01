@@ -77,6 +77,21 @@ class Visual(BeeProcess):
                     cv2.putText(img_540,"Frame Skip: %i" % (get_config("VISUALIZATION_FRAME_SKIP"),), 
                         (img_540.shape[1]-200,60),
                         cv2.FONT_HERSHEY_PLAIN, 1, (0,0,255), 1)
+                    
+                if get_config("SHOW_LEGEND"):
+                    legends = {
+                        "Verroa Infected": (0, 0, 255),  # Red dot
+                        "Pollen": (255, 0, 0),           # Blue dot
+                        "Cooling the Hive": (0, 255, 0),  # Green dot
+                        "Wasp": (0, 0, 0),               # Black dot
+                    }
+                    count = 1
+                    for legend_text, dot_color in legends.items():
+                        legend_position = (img_540.shape[1]-200,20*count)
+                        cv2.circle(img_540, legend_position, 5, dot_color, -1)
+                        cv2.putText(img_540, legend_text, (legend_position[0] + 15, legend_position[1]+5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, dot_color, 1)
+                        count += 1
+
 
                 if get_config("DRAW_DETECTED_ELLIPSES"):
                     for item in detected_bees:
@@ -93,7 +108,7 @@ class Visual(BeeProcess):
 
                     skipKey = 1 if get_config("FRAME_AUTO_PROCESS") else 0
 
-                    cv2.imshow("frame", img_540)
+                    #cv2.imshow("frame", img_540)
                     if cv2.waitKey(skipKey) & 0xFF == ord('q'):
                         break
 
@@ -104,7 +119,7 @@ class Visual(BeeProcess):
 
                         #TODO: Set real Framerate from video input or from video stream
                         writer = cv2.VideoWriter(get_config("SAVE_AS_VIDEO_PATH"), \
-                                cv2.VideoWriter_fourcc(*'MJPG'), 19, (w, h))
+                                cv2.VideoWriter_fourcc(*'mp4v'), 10, (w, h))
                         onetime = False
                         print("Writer object created")
                     writer.write(img_540)

@@ -12,11 +12,14 @@ USE_GSTREAM:                            False
 # Enabled result visulatization, this will 
 # slow down the processing. Needs to be 
 # enabled to use 'SAVE_AS_VIDEO'
+# make either SHOW_VISUALIZATION_DETAILS or SHOW_LEGEND True
 VISUALIZATION_ENABLED:                  True
 
 VISUALIZATION_FRAME_SKIP:               3
 
-SHOW_VISUALIZATION_DETAILS:             True
+SHOW_VISUALIZATION_DETAILS:             False
+
+SHOW_LEGEND:                             True
 
 ##
 ## Image processing
@@ -49,7 +52,7 @@ FRAME_SET_FULL_PAUSE_TIME:               0.1
 # SAVE_AS_VIDEO:                           False
 
 # The name of the video to store
-SAVE_AS_VIDEO_PATH:                      "static/output/result.avi"
+SAVE_AS_VIDEO_PATH:                      "static/output/result.mp4"
 
 # Amount of different track colors to use
 TRACK_COLOR_COUNT:                       100
@@ -182,6 +185,14 @@ CLASSIFICATION_THRESHOLDS: {
         'varroa':   0.95,
         'wasps':    0.80,
         'cooling':  0.92
+    }
+
+# Legend details
+LEGEND: {
+        "Verroa Infected": (0, 0, 255),  # Red dot
+        "Pollen": (255, 0, 0),           # Blue dot
+        "Cooling the Hive": (0, 255, 0),  # Green dot
+        "Wasp": (0, 0, 0),               # Black dot
     }
 
 
